@@ -6,57 +6,111 @@ import 'package:expense_manager/settings/ui/settings_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-final appNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'xpense');
-final homeNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'home');
-final analyticsNavigatorKey = GlobalKey<NavigatorState>(
+// https://github.com/flutter/packages/blob/main/packages/go_router/example/lib/stateful_shell_route.dart
+
+final _appNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'xpense');
+final _homeNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'home');
+final _analyticsNavigatorKey = GlobalKey<NavigatorState>(
   debugLabel: 'analytics',
 );
-final settingsNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'settings');
+final _settingsNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'settings');
 
-final List<RouteBase> appRoutes = [
-  StatefulShellRoute.indexedStack(
-    builder:
-        (
-          BuildContext context,
-          GoRouterState state,
-          StatefulNavigationShell navigationShell,
-        ) {
-          return MainPage(navigationShell: navigationShell);
-        },
-    branches: <StatefulShellBranch>[
-      // Home
-      StatefulShellBranch(
-        navigatorKey: homeNavigatorKey,
-        routes: [
-          GoRoute(
-            path: RouteKey.home,
-            builder: (context, state) => HomePage(),
-            routes: [],
-          ),
-        ],
-      ),
+final GoRouter appRouter = GoRouter(
+  navigatorKey: _appNavigatorKey,
+  initialLocation: RouteKey.home,
+  routes: [
+    StatefulShellRoute.indexedStack(
+      builder:
+          (
+            BuildContext context,
+            GoRouterState state,
+            StatefulNavigationShell navigationShell,
+          ) {
+            return MainPage(navigationShell: navigationShell);
+          },
+      branches: <StatefulShellBranch>[
+        // Home
+        StatefulShellBranch(
+          navigatorKey: _homeNavigatorKey,
+          routes: [
+            GoRoute(
+              path: RouteKey.home,
+              builder: (context, state) => HomePage(),
+              routes: [],
+            ),
+          ],
+        ),
 
-      // analytics
-      StatefulShellBranch(
-        navigatorKey: analyticsNavigatorKey,
-        routes: [
-          GoRoute(
-            path: RouteKey.analytics,
-            builder: (context, state) => AnalyticsPage(),
-          ),
-        ],
-      ),
+        // analytics
+        StatefulShellBranch(
+          navigatorKey: _analyticsNavigatorKey,
+          routes: [
+            GoRoute(
+              path: RouteKey.analytics,
+              builder: (context, state) => AnalyticsPage(),
+            ),
+          ],
+        ),
 
-      // analytics
-      StatefulShellBranch(
-        navigatorKey: settingsNavigatorKey,
-        routes: [
-          GoRoute(
-            path: RouteKey.settings,
-            builder: (context, state) => SettingsPage(),
-          ),
-        ],
-      ),
-    ],
-  ),
-];
+        // analytics
+        StatefulShellBranch(
+          navigatorKey: _settingsNavigatorKey,
+          routes: [
+            GoRoute(
+              path: RouteKey.settings,
+              builder: (context, state) => SettingsPage(),
+            ),
+          ],
+        ),
+      ],
+    ),
+  ],
+);
+
+// final List<RouteBase> appRoutes = [
+//   StatefulShellRoute.indexedStack(
+//     builder:
+//         (
+//           BuildContext context,
+//           GoRouterState state,
+//           StatefulNavigationShell navigationShell,
+//         ) {
+//           return MainPage(navigationShell: navigationShell);
+//         },
+//     branches: <StatefulShellBranch>[
+//       // Home
+//       StatefulShellBranch(
+//         navigatorKey: _homeNavigatorKey,
+//         routes: [
+//           GoRoute(
+//             path: RouteKey.home,
+//             builder: (context, state) => HomePage(),
+//             routes: [],
+//           ),
+//         ],
+//       ),
+
+//       // analytics
+//       StatefulShellBranch(
+//         navigatorKey: _analyticsNavigatorKey,
+//         routes: [
+//           GoRoute(
+//             path: RouteKey.analytics,
+//             builder: (context, state) => AnalyticsPage(),
+//           ),
+//         ],
+//       ),
+
+//       // analytics
+//       StatefulShellBranch(
+//         navigatorKey: _settingsNavigatorKey,
+//         routes: [
+//           GoRoute(
+//             path: RouteKey.settings,
+//             builder: (context, state) => SettingsPage(),
+//           ),
+//         ],
+//       ),
+//     ],
+//   ),
+// ];
