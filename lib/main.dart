@@ -29,7 +29,7 @@ class ExpenseManagerApp extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp.router(
-      title: 'Xpense',
+      title: 'Uni Wallet',
       debugShowCheckedModeBanner: false,
       routerConfig: appRouter,
       builder: (BuildContext context, Widget? child) {

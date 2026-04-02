@@ -24,6 +24,14 @@ lib/
 └── translation/
 ```
 
+### Chage the app name and app icon
+
+Need to run this command after setup everything for app icon
+
+```bash
+dart run flutter_launcher_icons
+```
+
 ## Step 01: Setup Route with GoRouter
 
 - Reference:
@@ -38,6 +46,5 @@ lib/
 4. In main.dart file, get the appRouter app_route.dart
 5. Set up router tracker
 6. `Optional` Create extension for clear all navigation stack and navigate to a new route.
-
 
 ## Step 02: Setup State Management/Provider with Riverpod
