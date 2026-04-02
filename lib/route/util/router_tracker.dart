@@ -1,3 +1,0 @@
-class RouterTracker {
-  RouterTracker._();
-}
