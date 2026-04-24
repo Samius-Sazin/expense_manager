@@ -1,5 +1,6 @@
 import 'package:expense_manager/analytics/ui/analytics_page.dart';
 import 'package:expense_manager/common/ui/main_page.dart';
+import 'package:expense_manager/home/model/expense_model.dart';
 import 'package:expense_manager/home/ui/home_page.dart';
 import 'package:expense_manager/route/model/route_key.dart';
 import 'package:expense_manager/settings/ui/settings_page.dart';
@@ -35,7 +36,19 @@ final GoRouter appRouter = GoRouter(
           routes: [
             GoRoute(
               path: RouteKey.home,
-              builder: (context, state) => HomePage(),
+              builder: (context, state) => const HomePage(
+                expenses: [],
+                defaultCategory: '',
+                categories: [],
+                totalMonthlyExpense: 0,
+                todayExpense: 0,
+                monthlyBudget: 0,
+                dailyBudget: 0,
+                currency: 'BDT',
+                onExpenseAdded: _noopAddExpense,
+                onExpenseUpdated: _noopAddExpense,
+                onExpenseDeleted: _noopDeleteExpense,
+              ),
               routes: [],
             ),
           ],
@@ -47,7 +60,8 @@ final GoRouter appRouter = GoRouter(
           routes: [
             GoRoute(
               path: RouteKey.analytics,
-              builder: (context, state) => AnalyticsPage(),
+              builder: (context, state) =>
+                  const AnalyticsPage(expenses: [], foods: [], currency: 'BDT'),
             ),
           ],
         ),
@@ -58,7 +72,31 @@ final GoRouter appRouter = GoRouter(
           routes: [
             GoRoute(
               path: RouteKey.settings,
-              builder: (context, state) => SettingsPage(),
+              builder: (context, state) => SettingsPage(
+                name: '',
+                studentId: '',
+                monthlyBudget: 0,
+                dailyBudget: 0,
+                totalExpense: 0,
+                defaultCategory: '',
+                categories: const [],
+                foods: const [],
+                darkMode: false,
+                themeColor: 'Blue',
+                dailyReminder: false,
+                budgetAlert: false,
+                onProfileSaved: (_, _) {},
+                onBudgetSaved: (_, _) {},
+                onPreferencesChanged: (_) {},
+                onCategoryAdded: (_) async {},
+                onCategoryDeleted: (_) async {},
+                onFoodAdded: (_, __) async {},
+                onFoodDeleted: (_) async {},
+                onAppearanceChanged: (_, _) {},
+                onThemeChanged: null,
+                onNotificationChanged: (_, _) {},
+                onClearAllExpenses: () async {},
+              ),
             ),
           ],
         ),
@@ -66,6 +104,9 @@ final GoRouter appRouter = GoRouter(
     ),
   ],
 );
+
+Future<void> _noopAddExpense(Expense expense) async {}
+Future<void> _noopDeleteExpense(int id) async {}
 
 // final List<RouteBase> appRoutes = [
 //   StatefulShellRoute.indexedStack(
